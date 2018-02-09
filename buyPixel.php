@@ -12,19 +12,17 @@
 $target_file = $_FILES['imageToUpload']['name'];
 if($target_file) {
     if(!$_FILES['imageToUpload']['error']){
+        $valid_file = true;
         $new_file_name = strtolower($_FILES['imageToUpload']['tmp_name']);
         if($_FILES['imageToUpload']['size'] > 1024000) {
             $valid_file = false;
             $message = 'Error!  Your file\'s size is too large!';
         }
         if($valid_file) {
-            move_uploaded_file($_FILES['imageToUpload']['tmp_name'], 'meme_map'.$new_file_name);
+            move_uploaded_file($_FILES['imageToUpload']['tmp_name'], 'meme_map/'.$_FILES['imageToUpload']['name']);
         }
 
     }
 }
-for($i=0;$i<4;++$i){
-    print_r($_FILES[$i]);
-}
 
-echo '<img src=meme_map' . $new_file_name . ' alt="hello world">';
+echo '<img src=meme_map/' . $_FILES['imageToUpload']['name'] . ' alt="hello world">';
