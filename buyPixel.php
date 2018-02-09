@@ -28,26 +28,27 @@ if($target_file) {
 
     }
 }
-$photo_added = imagecreatefromstring(file_get_contents('meme_map/'.$_FILES['imageToUpload']['name']));
-$meme_map = imagecreatefromstring(file_get_contents("meme_map/meme-map.png"));
-$rgb = imagecolorat($meme_map, 0, 0);
-$colours = imagecolorsforindex($meme_map, $rgb);
 
+$photo_added = imagecreatefromjpeg('meme_map/'.$_FILES['imageToUpload']['name']);
+$meme_map = imagecreatefrompng('meme_map/meme-map(1).png');
+$meme_map_check = imagecreatefromstring(file_get_contents('meme_map/meme-map(1).png'));
+
+$grab_width = $_POST['photoWidth'];
+$grab_height = $_POST['photoHeight'];
+
+$added_photo_width = 10;
+$added_photo_height = 10;
+
+$rgb = imagecolorat($meme_map_check, $grab_width, $grab_height);
+$colours = imagecolorsforindex($meme_map_check, $rgb);
 /*if the pixel is blank*/
-if($colours['red'] == 255 and $colours['green'] == 255 and $colours['blue'] == 255 and @$colours['alpha'] == 0){
-    /*
-     *
-     *
-     * THIS DOESN'T WORK
-     *
-     * 
-    */
-    /*imagecopyresampled($dst_img, $src_img, $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h,$src_w, $src_h)*/
-    imagecopyresampled($meme_map, $photo_added, 100, 100,0, 0, $pic_info[0], $pic_info[1],$pic_info[0], $pic_info[1]);
-    /*header('Location: mememain.html');
-    exit;*/
-    echo '<img src=meme_map/meme-map.png alt="hello world">';
+if($colours['red'] == 255 and $colours['green'] == 255 and $colours['blue'] == 255 and $colours['alpha'] == 0){
+    imagecopyresampled($meme_map, $photo_added, $grab_width, $grab_height,0, 0, $added_photo_width, $added_photo_height, $pic_info[0], $pic_info[1]);
+    imagepng($meme_map, 'meme_map/meme-map(1).png');
+    header('Location: buyPixel.html');
+    exit;
+} else {
+    header('Location: buyPixel.html');
+    exit;
 }
-
-
-echo '<img src=meme_map/' . $_FILES['imageToUpload']['name'] . ' alt="hello world">';
+#echo '<img src=meme_map/' . $_FILES['imageToUpload']['name'] . ' alt="hello world">';
