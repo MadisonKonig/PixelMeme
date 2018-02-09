@@ -8,7 +8,6 @@
 /*
  * This is to make sure the uploaded file is an image
  */
-
 $target_file = $_FILES['imageToUpload']['name'];
 if($target_file) {
     if(!$_FILES['imageToUpload']['error']){
@@ -29,5 +28,12 @@ if($target_file) {
 
     }
 }
+
+$meme_map = imagecreatefrompng("meme_map/meme-map.png");
+$rgb = imagecolorat($meme_map, 10, 15);
+$colours = imagecolorsforindex($meme_map, $rgb);
+var_dump($colours);
+
+
 
 echo '<img src=meme_map/' . $_FILES['imageToUpload']['name'] . ' alt="hello world">';
