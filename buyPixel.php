@@ -28,12 +28,26 @@ if($target_file) {
 
     }
 }
-
-$meme_map = imagecreatefrompng("meme_map/meme-map.png");
-$rgb = imagecolorat($meme_map, 10, 15);
+$photo_added = imagecreatefromstring(file_get_contents('meme_map/'.$_FILES['imageToUpload']['name']));
+$meme_map = imagecreatefromstring(file_get_contents("meme_map/meme-map.png"));
+$rgb = imagecolorat($meme_map, 0, 0);
 $colours = imagecolorsforindex($meme_map, $rgb);
-var_dump($colours);
 
+/*if the pixel is blank*/
+if($colours['red'] == 255 and $colours['green'] == 255 and $colours['blue'] == 255 and @$colours['alpha'] == 0){
+    /*
+     *
+     *
+     * THIS DOESN'T WORK
+     *
+     * 
+    */
+    /*imagecopyresampled($dst_img, $src_img, $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h,$src_w, $src_h)*/
+    imagecopyresampled($meme_map, $photo_added, 100, 100,0, 0, $pic_info[0], $pic_info[1],$pic_info[0], $pic_info[1]);
+    /*header('Location: mememain.html');
+    exit;*/
+    echo '<img src=meme_map/meme-map.png alt="hello world">';
+}
 
 
 echo '<img src=meme_map/' . $_FILES['imageToUpload']['name'] . ' alt="hello world">';
