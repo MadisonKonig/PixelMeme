@@ -18,9 +18,14 @@ if($target_file) {
             $valid_file = false;
             $message = 'Error!  Your file\'s size is too large!';
         }
-        if($valid_file) {
-            move_uploaded_file($_FILES['imageToUpload']['tmp_name'], 'meme_map/'.$_FILES['imageToUpload']['name']);
+        $pic_info = getimagesize($_FILES['imageToUpload']['tmp_name']);
+        $file_ext = image_type_to_extension($pic_info[2]);
+        if($file_ext == '.jpg' or $file_ext == '.png' or $file_ext == '.jpeg'){
+            if($valid_file) {
+                move_uploaded_file($_FILES['imageToUpload']['tmp_name'], 'meme_map/'.$_FILES['imageToUpload']['name']);
+            }
         }
+
 
     }
 }
