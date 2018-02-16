@@ -33,9 +33,15 @@ $photo_added = imagecreatefromjpeg('meme_map/'.$_FILES['imageToUpload']['name'])
 $meme_map = imagecreatefrompng('meme_map/meme-map(1).png');
 $meme_map_check = imagecreatefromstring(file_get_contents('meme_map/meme-map(1).png'));
 
+//takes user's clicked square
 $grab_width = $_POST['photoWidth'];
 $grab_height = $_POST['photoHeight'];
 
+//defines it to be a grid
+$grab_width -= ($grab_width%10);
+$grab_height -= ($grab_height%10);
+
+//size of the photo once added
 $added_photo_width = 10;
 $added_photo_height = 10;
 
