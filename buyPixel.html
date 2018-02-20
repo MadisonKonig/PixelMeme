@@ -11,21 +11,26 @@
         <form action="buyPixel.php" method="post" enctype="multipart/form-data">
             Select meme to upload:
             <input type="file" name="imageToUpload" id="imageToUpload">
-            Width:<input type="text" id="widthX" name="photoWidth" title="Width" min="0" max="990">
-            Height:<input type="text" id="heightY" name="photoHeight" title="Height" min="0" max="990">
+            Width:<input type="text" id="widthX" name="photoWidth" title="Width" min="0" max="999">
+            Height:<input type="text" id="heightY" name="photoHeight" title="Height" min="0" max="999">
             <input type="submit" value="Buy" name="submit">
         </form>
-        <img onclick="enterCoords(event)" src="meme_map/meme-map(1).png" border="2" alt="meme Map">
+        <img onclick="enterCoords(event)" id="mememap" src="meme_map/meme-map(1).png" border="2" alt="meme Map">
 
 
         <script>
             <!-- this function could work a bit better -->
             function enterCoords(event){
-                var x = event.clientX - 10;
-                var y = event.clientY - 100;
+                var size = document.getElementById("mememap");
+                var x = (event.clientX - size.offsetLeft) - 3;
+                var y = (event.clientY - size.offsetTop ) - 3;
                 document.getElementById("widthX").value = x;
                 document.getElementById("heightY").value = y;
             }
+            function newImg(){
+                document.getElementById("mememap").src = document.getElementById("mememap").src + '#' + (new Date()).getTime();
+            }
+            newImg();
         </script>
     </body>
 </html>
