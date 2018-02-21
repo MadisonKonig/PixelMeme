@@ -50,12 +50,15 @@
         <map name="memeMap" id="map">
             <area shape="rect" coords="10, 10, 10, 10" href="" title="Addedme">
         </map>
-        <img src="meme_map/meme-map(1).png" width="1000" height="1000" alt="meme Map">
+        <img id="mememap" src="meme_map/meme-map(1).png" width="1000" height="1000" alt="meme Map">
     </div>
 </div>
 <noscript><p>please enable javascript</p></noscript>
 <script>
-
+    function newImg(){
+        document.getElementById("mememap").src = document.getElementById("mememap").src + '?' + (new Date()).getTime();
+    }
+    newImg();
 </script>
 </body>
 </html>

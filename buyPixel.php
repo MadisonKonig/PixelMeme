@@ -29,6 +29,8 @@ if($target_file) {
     }
 }
 
+
+
 $photo_added = imagecreatefromjpeg('meme_map/'.$_FILES['imageToUpload']['name']);
 $meme_map = imagecreatefrompng('meme_map/meme-map(1).png');
 $meme_map_check = imagecreatefromstring(file_get_contents('meme_map/meme-map(1).png'));
@@ -42,13 +44,12 @@ $grab_width -= ($grab_width%10);
 $grab_height -= ($grab_height%10);
 
 //size of the photo once added
-$added_photo_width = 10;
-$added_photo_height = 10;
+$added_photo_height = $added_photo_width = $_POST['size'];
 
 $rgb = imagecolorat($meme_map_check, $grab_width, $grab_height);
 $colours = imagecolorsforindex($meme_map_check, $rgb);
 /*if the pixel is blank*/
-if($colours['red'] == 255 and $colours['green'] == 255 and $colours['blue'] == 255 and $colours['alpha'] == 0){
+if($colours['red'] == 0 and $colours['green'] == 0 and $colours['blue'] == 0 and $colours['alpha'] == 0){
     imagecopyresampled($meme_map, $photo_added, $grab_width, $grab_height,0, 0, $added_photo_width, $added_photo_height, $pic_info[0], $pic_info[1]);
     imagepng($meme_map, 'meme_map/meme-map(1).png');
     header('Location: buyPixel.html');
