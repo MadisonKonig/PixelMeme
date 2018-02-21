@@ -13,10 +13,11 @@
             <input type="file" name="imageToUpload" id="imageToUpload">
             Width:<input type="text" id="widthX" name="photoWidth" title="Width" min="0" max="999">
             Height:<input type="text" id="heightY" name="photoHeight" title="Height" min="0" max="999">
-            <input type="radio" name="size" value="10" title="tiny"> 10x10
+            <input type="radio" name="size" value="10" title="tiny" required> 10x10
             <input type="radio" name="size" value="20" title="small"> 20x20
             <input type="radio" name="size" value="30" title="medium"> 30x30
             <input type="radio" name="size" value="40" title="large"> 40x40
+            Link:<input type="text" name="hyperLink" title="link">
             <input type="submit" value="Buy" name="submit">
         </form>
         <img onclick="enterCoords(event)" id="mememap" src="meme_map/meme-map(1).png" border="2" alt="meme Map">

@@ -55,10 +55,24 @@
 </div>
 <noscript><p>please enable javascript</p></noscript>
 <script>
+
     function newImg(){
         document.getElementById("mememap").src = document.getElementById("mememap").src + '?' + (new Date()).getTime();
     }
     newImg();
+    //this will be to add the area and start to popuate that stuff
+    // function checks($u, $p){
+    //     $accountSaved = "./logins.txt";
+    //     $f = fopen($accountSaved, "r");
+    //     while(!feof($f)) {
+    //         $l = fgets($f);
+    //         $c = explode(",", $l);
+    //         if (strcmp($c[0], $u) && strcmp($c[1], $p)) {
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // }
 </script>
 </body>
 </html>
