@@ -46,42 +46,47 @@ $grab_height -= ($grab_height%10);
 $added_photo_height = $added_photo_width = $_POST['size'];
 
 
-$colourPixel = false;
+$whitePixel = true;
 //need to look through each pixel, and see if the area is in use or not.
 //loop through the width
 for($checkPixelWidth = $grab_width; $checkPixelWidth < $grab_width + $added_photo_width; ++$checkPixelWidth){
+
     //loop through the height
     for($checkPixelHeight = $grab_height; $checkPixelHeight < $grab_height + $added_photo_height; ++$checkPixelHeight){
+
         $rgb = imagecolorat($meme_map_check, $checkPixelWidth, $checkPixelHeight);
         $colours = imagecolorsforindex($meme_map_check, $rgb);
         if(!($colours['red'] == 255 and $colours['green'] == 255 and $colours['blue'] == 255 and $colours['alpha'] == 0)){
-            $colourPixel = true;
+            $whitePixel = false;
+            break;
         }
     }
+    //if any of the pixels are white, then we can just leave the loop checker completely.
+    if($whitePixel === false) {
+        break;
+    }
+
 }
 
+//make sure we can open the file
+$link_grab = $_POST['hyperLink'];
+$arraylink = "./meme_map/links.txt";
+$file = fopen($arraylink, "a") or die("Unable to open file");
+
 /*if the pixel is blank*/
-if($colourPixel === false) {
-    imagecopyresampled($meme_map, $photo_added, $grab_width, $grab_height,0, 0, $added_photo_width, $added_photo_height, $pic_info[0], $pic_info[1]);
-    imagepng($meme_map, 'meme_map/meme-map(1).png');
+if($whitePixel === true) {
 
     //if it is added, then check if link, and add to txt
-    $link_grab = $_POST['hyperLink'];
-    if($link_grab) {
-        echo "something in link is ". $link_grab;
-        $arraylink = "./meme_map/links.txt";
-        echo "passing in the path to the txt: ". $arraylink;
-        $file = fopen($arraylink, "w");
-        if($file) {
-            echo "opened!";
-        }
+    if($link_grab !== "") {
 
-        print_r($file);
         //Order for input of txt
         //image width, image height, image size, link
         fwrite($file, $grab_width. "," .$grab_height. "," .$added_photo_height. "," .$link_grab. "\n");
         fclose($file);
     }
+    //check to make sure that the file is added, and can be opened, then add it to the map
+    imagecopyresampled($meme_map, $photo_added, $grab_width, $grab_height,0, 0, $added_photo_width, $added_photo_height, $pic_info[0], $pic_info[1]);
+    imagepng($meme_map, 'meme_map/meme-map(1).png');
 
     //quit and return
     header('Location: buyPixel.html');
