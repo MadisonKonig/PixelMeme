@@ -8,6 +8,10 @@
 /*
  * This is to make sure the uploaded file is an image
  */
+/*
+ * don't store the photo's on your server !!TO DO!!
+ *
+ */
 $target_file = $_FILES['imageToUpload']['name'];
 if($target_file) {
     if(!$_FILES['imageToUpload']['error']){
