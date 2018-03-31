@@ -79,15 +79,11 @@ $file = fopen($arraylink, "a") or die("Unable to open file");
 
 /*if the pixel is blank*/
 if($whitePixel === true) {
+    //Order for input of txt
+    //image width, image height, image size, link
+    fwrite($file, $grab_width. "," .$grab_height. "," .$added_photo_height. "," .$link_grab. "\n");
+    fclose($file);
 
-    //if it is added, then check if link, and add to txt
-    if($link_grab !== "") {
-
-        //Order for input of txt
-        //image width, image height, image size, link
-        fwrite($file, $grab_width. "," .$grab_height. "," .$added_photo_height. "," .$link_grab. "\n");
-        fclose($file);
-    }
     //check to make sure that the file is added, and can be opened, then add it to the map
     imagecopyresampled($meme_map, $photo_added, $grab_width, $grab_height,0, 0, $added_photo_width, $added_photo_height, $pic_info[0], $pic_info[1]);
     imagepng($meme_map, 'meme_map/meme-map(1).png');

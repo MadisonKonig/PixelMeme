@@ -1,3 +1,10 @@
 500,200,40,https://www.youtube.com/watch?v=XOg6pHAVnPw
 720,260,40,HelloWorld
 360,420,40,https://www.youtube.com/watch?v=XOg6pHAVnPw
+400,420,40,Hello world
+990,820,10,Anotherone
+940,880,40,
+990,990,10,
+940,930,10,Testing the coords v2
+900,880,40,
+980,990,10,
