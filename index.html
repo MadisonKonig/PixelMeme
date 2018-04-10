@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Pixel Meme</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <style type="text/css">
         .main {
             text-align: center;
@@ -42,8 +43,10 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="buyPixel.html">Buy Pixel</a></li>
             <li><a href="">FAQ</a></li>
-            <li><a href="login.html">Login</a></li>
             <li><a href="">Contact Us</a></li>
+            <li id="login"><a href="login.html">Login</a></li>
+            <li id="signout"><button id="btn-signout">Sign-out</button></li>
+
         </ul>
     </div>
     <div id="memelist">
@@ -67,12 +70,19 @@
 	};
 	firebase.initializeApp(config);
 	firebase.auth().onAuthStateChanged(function(user) {
+		var so = $('#signout');
+		var li = $('#login');
 		if (user) {
-			alert("hello", user.displayName);
+			so.show();
+			li.hide();
 		} else {
-			alert("no user");
+            so.hide();
+            li.show();
 		}
 	});
+	$('#btn-signout').click(function(){
+		firebase.auth().signOut();
+    });
 </script>
 
 <script>

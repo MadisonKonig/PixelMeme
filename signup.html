@@ -71,22 +71,16 @@
 				alert('Please enter a password.');
 				return;
 			}
-			// Sign in with email and pass.
-			// [START createwithemail]
 			firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-				// Handle Errors here.
 				var errorCode = error.code;
 				var errorMessage = error.message;
-				// [START_EXCLUDE]
 				if (errorCode == 'auth/weak-password') {
 					alert('The password is too weak.');
 				} else {
 					alert(errorMessage);
 				}
 				console.log(error);
-				// [END_EXCLUDE]
 			});
-			// [END createwithemail]
 		}
 		/**
 		 * Sends an email verification to the user.
@@ -177,7 +171,7 @@
 	</script>
 </head>
 <body>
-<div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
+<div>
 
 	<!-- Header section containing title -->
 	<header>
@@ -199,17 +193,17 @@
 				<div>
 					<p>Enter an email and password below and either sign in to an existing account or sign up</p>
 
-					<input class="mdl-textfield__input" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email"/>
+					<input style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email"/>
 					&nbsp;&nbsp;&nbsp;
-					<input class="mdl-textfield__input" style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password"/>
+					<input style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password"/>
 					<br/><br/>
-					<button disabled class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-in" name="signin">Sign In</button>
+					<button disabled id="quickstart-sign-in" name="signin">Sign In</button>
 					&nbsp;&nbsp;&nbsp;
-					<button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-up" name="signup">Sign Up</button>
+					<button id="quickstart-sign-up" name="signup">Sign Up</button>
 					&nbsp;&nbsp;&nbsp;
-					<button class="mdl-button mdl-js-button mdl-button--raised" disabled id="quickstart-verify-email" name="verify-email">Send Email Verification</button>
+					<button disabled id="quickstart-verify-email" name="verify-email">Send Email Verification</button>
 					&nbsp;&nbsp;&nbsp;
-					<button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-password-reset" name="verify-email">Send Password Reset Email</button>
+					<button id="quickstart-password-reset" name="verify-email">Send Password Reset Email</button>
 
 					<!-- Container where we'll display the user details -->
 					<div>
@@ -225,36 +219,3 @@
 </div>
 </body>
 </html>
-<!--</head>-->
-<!--<body>-->
-<!--<form>-->
-	<!--<input type="text" id="email" placeholder="Email...">-->
-	<!--<input type="password" id="password" placeholder="Password...">-->
-	<!--<button value="Sign-up" id="signup">Sign in/register</button>-->
-<!--</form>-->
-<!--<button id="logout" type="button">Logout</button>-->
-<!--<script>-->
-	<!--$('#logout').click(function(){-->
-		<!--firebase.auth().signOut().catch(function (error) {-->
-			<!--console.log(error);-->
-		<!--});-->
-	<!--});-->
-	<!--$('#signup').click(function(){-->
-		<!--var email = $('#username').val();-->
-		<!--console.log(email);-->
-		<!--var password = $('#password').val();-->
-		<!--firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {-->
-			<!--// Handle Errors here.-->
-			<!--var errorCode = error.code;-->
-			<!--var errorMessage = error.message;-->
-			<!--console.log(errorCode, errorMessage);-->
-			<!--// ...-->
-		<!--});-->
-	<!--});-->
-	<!--firebase.auth().onAuthStateChanged(function(user){-->
-		<!--console.log(user)-->
-	<!--});-->
-<!--</script>-->
-
-<!--</body>-->
-<!--</html>-->
