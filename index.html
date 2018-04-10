@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Pixel Meme</title>
     <style type="text/css">
         .main {
             text-align: center;
@@ -39,10 +39,10 @@
 <div class="main">
     <div id="bar">
         <ul>
-            <li><a href="mememain.html">Home</a></li>
+            <li><a href="index.html">Home</a></li>
             <li><a href="buyPixel.html">Buy Pixel</a></li>
             <li><a href="">FAQ</a></li>
-            <li><a href="">Meme List</a></li>
+            <li><a href="login.html">Login</a></li>
             <li><a href="">Contact Us</a></li>
         </ul>
     </div>
@@ -54,25 +54,34 @@
     </div>
 </div>
 <noscript><p>please enable javascript</p></noscript>
+<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+<script>
+	// Initialize Firebase
+	var config = {
+		apiKey: "AIzaSyDg8cKLvS8KuVCxeahzMNQJvt5FG7r4Ay8",
+		authDomain: "pixelmeme-4e7cf.firebaseapp.com",
+		databaseURL: "https://pixelmeme-4e7cf.firebaseio.com",
+		projectId: "pixelmeme-4e7cf",
+		storageBucket: "",
+		messagingSenderId: "548501828671"
+	};
+	firebase.initializeApp(config);
+	firebase.auth().onAuthStateChanged(function(user) {
+		if (user) {
+			alert("hello", user.displayName);
+		} else {
+			alert("no user");
+		}
+	});
+</script>
+
 <script>
 
     function newImg(){
         document.getElementById("mememap").src = document.getElementById("mememap").src + '?' + (new Date()).getTime();
     }
     newImg();
-    //this will be to add the area and start to popuate that stuff
-    // function checks($u, $p){
-    //     $accountSaved = "./logins.txt";
-    //     $f = fopen($accountSaved, "r");
-    //     while(!feof($f)) {
-    //         $l = fgets($f);
-    //         $c = explode(",", $l);
-    //         if (strcmp($c[0], $u) && strcmp($c[1], $p)) {
-    //             return true;
-    //         }
-    //     }
-    //     return false;
-    // }
+
 </script>
 </body>
 </html>

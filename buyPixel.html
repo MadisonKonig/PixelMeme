@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Title</title>
+        <title>Buy a Pixel</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	    <script>
 		    $(function(){
@@ -64,6 +64,19 @@
 
 
         <!--onclick="enterCoords(event)"-->
+        <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+        <script>
+	        // Initialize Firebase
+	        var config = {
+		        apiKey: "AIzaSyDg8cKLvS8KuVCxeahzMNQJvt5FG7r4Ay8",
+		        authDomain: "pixelmeme-4e7cf.firebaseapp.com",
+		        databaseURL: "https://pixelmeme-4e7cf.firebaseio.com",
+		        projectId: "pixelmeme-4e7cf",
+		        storageBucket: "",
+		        messagingSenderId: "548501828671"
+	        };
+	        firebase.initializeApp(config);
+        </script>
         <script>
             <!-- this function could work a bit better -->
             function enterCoords(event){

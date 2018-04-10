@@ -28,8 +28,6 @@ if($target_file) {
                 move_uploaded_file($_FILES['imageToUpload']['tmp_name'], 'meme_map/'.$_FILES['imageToUpload']['name']);
             }
         }
-
-
     }
 }
 
@@ -69,7 +67,6 @@ for($checkPixelWidth = $grab_width; $checkPixelWidth < $grab_width + $added_phot
     if($whitePixel === false) {
         break;
     }
-
 }
 
 //make sure we can open the file
