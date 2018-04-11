@@ -4,6 +4,22 @@
     <meta charset="UTF-8">
     <title>Pixel Meme</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.12.0/firebase-firestore.js"></script>
+	<script>
+		// Initialize Firebase
+		var config = {
+			apiKey: "AIzaSyDg8cKLvS8KuVCxeahzMNQJvt5FG7r4Ay8",
+			authDomain: "pixelmeme-4e7cf.firebaseapp.com",
+			databaseURL: "https://pixelmeme-4e7cf.firebaseio.com",
+			projectId: "pixelmeme-4e7cf",
+			storageBucket: "gs://pixelmeme-4e7cf.appspot.com/",
+			messagingSenderId: "548501828671"
+		};
+		var app = firebase.initializeApp(config);
+		var db = firebase.firestore(app);
+		var storage = firebase.storage();
+	</script>
     <style type="text/css">
         .main {
             text-align: center;
@@ -58,26 +74,17 @@
     </div>
 </div>
 <noscript><p>please enable javascript</p></noscript>
-<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
 <script>
-	// Initialize Firebase
-	var config = {
-		apiKey: "AIzaSyDg8cKLvS8KuVCxeahzMNQJvt5FG7r4Ay8",
-		authDomain: "pixelmeme-4e7cf.firebaseapp.com",
-		databaseURL: "https://pixelmeme-4e7cf.firebaseio.com",
-		projectId: "pixelmeme-4e7cf",
-		storageBucket: "",
-		messagingSenderId: "548501828671"
-	};
-	var app = firebase.initializeApp(config);
-	db = firebase.firestore(app);
 	app.auth().onAuthStateChanged(function(user) {
-		var docRef = db.collection("users").doc(user.uid);
-		console.log(docRef.get());
+
 		var so = $('#signout');
 		var li = $('#login');
 		var ac = $('#account');
 		if (user) {
+			var docRef = db.collection("users").doc(user.uid);
+			docRef.get().then(function(data){
+				console.log(data);
+			});
 			so.show();
 			ac.show();
 			li.hide();
@@ -94,10 +101,12 @@
 
 <script>
 
-    function newImg(){
-        document.getElementById("mememap").src = document.getElementById("mememap").src + '?' + (new Date()).getTime();
-    }
-    newImg();
+    $(function(){
+	    storage.ref('meme-map/meme-map.png').getDownloadURL().then(function (value) {
+	    	$('#mememap').attr('src', value + "");
+	    });
+    });
+
 
 </script>
 </body>

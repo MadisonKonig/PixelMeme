@@ -14,7 +14,7 @@
 			authDomain: "pixelmeme-4e7cf.firebaseapp.com",
 			databaseURL: "https://pixelmeme-4e7cf.firebaseio.com",
 			projectId: "pixelmeme-4e7cf",
-			storageBucket: "",
+			storageBucket: "gs://pixelmeme-4e7cf.appspot.com/",
 			messagingSenderId: "548501828671"
 		};
 		var app = firebase.initializeApp(config);
@@ -35,12 +35,10 @@
 		var password = $('#password').val();
 		if (email.length < 4) {
 			alert('Please enter an email address.');
-			email = '';
 			return;
 		}
 		if (password.length < 4) {
 			alert('Please enter a password.');
-			password = '';
 			return;
 		}
 		app.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
@@ -48,7 +46,7 @@
 			var errorMessage = error.message;
 			console.log("EC: ", errorCode, " EM: ", errorMessage);
 			if (errorCode === 'auth/wrong-password' || errorCode === 'auth/user-not-found') {
-				email = password = '';
+				alert(errorCode);
 			} else {
 				alert(errorMessage);
 			}
@@ -60,12 +58,10 @@
 		var password = $('#password').val();
 		if (email.length < 4) {
 			alert('Please enter an email address.');
-			email = '';
 			return;
 		}
 		if (password.length < 4) {
 			alert('Please enter a password.');
-			password = '';
 			return;
 		}
 		app.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
@@ -73,10 +69,8 @@
 			var errorMessage = error.message;
 			if (errorCode === 'auth/weak-password') {
 				alert('The password is too weak.');
-				password = '';
 			} else if(errorCode === 'auth/email-already-in-use'){
 				alert('This email is already in use');
-				password = email = '';
 			}else {
 				alert(errorMessage);
 			}

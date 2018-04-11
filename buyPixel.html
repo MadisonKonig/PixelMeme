@@ -1,98 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Buy a Pixel</title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	    <script>
-		    $(function(){
-			    $('#mememap').click(function(event){
-			    	var map = $('#mememap');
-			    	var horizontal = event.pageX - map.position().left - 2;
-			    	var vertical = event.pageY - map.position().top - 2.125;
-			    	if (horizontal < 0){
-			    		horizontal = 0;
-				    } else if(horizontal > 1000){
-			    		horizontal = 1000;
-				    }
-				    if (vertical < 0){
-					    vertical = 0;
-				    } else if(vertical > 1000){
-					    vertical = 1000;
-				    }
-				    $('#widthX').val(horizontal);
-				    $('#heightY').val(vertical);
-			    });
-			    $('#tinySq').change((function() {
-				    alert("tiny");
-			    }));
-			    $('#smallSq').change((function() {
-				    alert("small");
-			    }));
-			    $('#mediumSq').change((function() {
-				    alert("medium");
-			    }));
-			    $('#largeSq').change((function() {
-				    alert("large");
-			    }));
-		    });
-	    </script>
-	    <style>
-		    div {
-			    margin: 20px;
-		    }
-	    </style>
-    </head>
-    <body>
-        <h1>
-            hi
-        </h1>
-        <form action="buyPixel.php" method="post" enctype="multipart/form-data">
-            Select meme to upload:
-            <input type="file" name="imageToUpload" id="imageToUpload">
-            Width:<input type="text" id="widthX" name="photoWidth" title="Width" min="0" max="999">
-            Height:<input type="text" id="heightY" name="photoHeight" title="Height" min="0" max="999">
-            <input type="radio" name="size" value="10" id="tinySq" title="tiny" checked required> 10x10
-            <input type="radio" name="size" value="20" id="smallSq" title="small"> 20x20
-            <input type="radio" name="size" value="30" id="mediumSq" title="medium"> 30x30
-            <input type="radio" name="size" value="40" id="largeSq" title="large"> 40x40
-            Link:<input type="text" name="hyperLink" title="link">
-            <input type="submit" value="Buy" name="submit">
-        </form>
+<head>
+	<meta charset="UTF-8">
+	<title>Buy a Pixel</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.12.0/firebase-firestore.js"></script>
+	<script>
+		// Initialize Firebase
+		var config = {
+			apiKey: "AIzaSyDg8cKLvS8KuVCxeahzMNQJvt5FG7r4Ay8",
+			authDomain: "pixelmeme-4e7cf.firebaseapp.com",
+			databaseURL: "https://pixelmeme-4e7cf.firebaseio.com",
+			projectId: "pixelmeme-4e7cf",
+			storageBucket: "gs://pixelmeme-4e7cf.appspot.com/",
+			messagingSenderId: "548501828671"
+		};
+		var app = firebase.initializeApp(config);
+		var db = firebase.firestore(app);
+		var storage = firebase.storage();
+	</script>
+	<style>
+		div {
+			margin: 20px;
+		}
+	</style>
+</head>
+<body>
+<h1>
+	hi
+</h1>
+<form action="buyPixel.php" method="post" enctype="multipart/form-data">
+	Select meme to upload:
+	<input type="file" name="imageToUpload" id="imageToUpload">
+	Width:<input type="text" id="widthX" name="photoWidth" title="Width" min="0" max="999">
+	Height:<input type="text" id="heightY" name="photoHeight" title="Height" min="0" max="999">
+	<input type="radio" name="size" value="10" id="tinySq" title="tiny" checked required> 10x10
+	<input type="radio" name="size" value="20" id="smallSq" title="small"> 20x20
+	<input type="radio" name="size" value="30" id="mediumSq" title="medium"> 30x30
+	<input type="radio" name="size" value="40" id="largeSq" title="large"> 40x40
+	Link:<input type="text" name="hyperLink" title="link">
+	<input type="submit" value="Buy" name="submit">
+</form>
 
-	        <img id="mememap" src="meme_map/meme-map(1).png"  border="2" alt="meme Map">
+<button id="test" name="test">console</button>
+
+<img id="mememap" src="" border="2" alt="meme Map">
 
 
-        <!--onclick="enterCoords(event)"-->
-        <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
-        <script>
-	        // Initialize Firebase
-	        var config = {
-		        apiKey: "AIzaSyDg8cKLvS8KuVCxeahzMNQJvt5FG7r4Ay8",
-		        authDomain: "pixelmeme-4e7cf.firebaseapp.com",
-		        databaseURL: "https://pixelmeme-4e7cf.firebaseio.com",
-		        projectId: "pixelmeme-4e7cf",
-		        storageBucket: "",
-		        messagingSenderId: "548501828671"
-	        };
-	        firebase.initializeApp(config);
-        </script>
-        <script>
-            <!-- this function could work a bit better -->
-            function enterCoords(event){
-                // var size = document.getElementById("mememap");
-                //
-                // var x = (/*size.naturalWidth - */size.getBoundingClientRect().left);// - event.clientX);
-                // var y = (size.naturalHeight - size.getBoundingClientRect().top);// - event.clientY);
-                // document.getElementById("widthX").value = x;
-                // document.getElementById("heightY").value = y;
-                // $('#photoWidth').val($('#mememap').offsetTop);
+<!--onclick="enterCoords(event)"-->
 
-            }
-            function newImg(){
-                document.getElementById("mememap").src = document.getElementById("mememap").src + '?' + (new Date()).getTime();
-            }
-            newImg();
-        </script>
-    </body>
+
+<script>
+	$(function () {
+		$('#test').click(
+			db.collection('timestamps').get().then(
+				function (snap) {
+					snap.forEach(function (doc) {
+						var photoX = $('#widthX').val();
+						var photoY = $('#heightY').val();
+						if (photoX === doc.data().x && photoY === doc.data().y) {
+							alert("foun!d");
+						}
+						console.log(doc.id, " => ", doc.data().x);
+					});
+				})
+		);
+		storage.ref('meme-map/meme-map.png').getDownloadURL().then(function (value) {
+			$('#mememap').attr('src', value + "");
+		});
+		$('#mememap').click(function (event) {
+			var map = $('#mememap');
+			var horizontal = event.pageX - map.position().left - 2;
+			var vertical = event.pageY - map.position().top - 2.125;
+			if (horizontal < 0) {
+				horizontal = 0;
+			} else if (horizontal > 1000) {
+				horizontal = 1000;
+			}
+			if (vertical < 0) {
+				vertical = 0;
+			} else if (vertical > 1000) {
+				vertical = 1000;
+			}
+			$('#widthX').val(horizontal);
+			$('#heightY').val(vertical);
+		});
+		$('#tinySq').change((function () {
+			alert("tiny");
+		}));
+		$('#smallSq').change((function () {
+			alert("small");
+		}));
+		$('#mediumSq').change((function () {
+			alert("medium");
+		}));
+		$('#largeSq').change((function () {
+			alert("large");
+		}));
+	});
+</script>
+</body>
 </html>
