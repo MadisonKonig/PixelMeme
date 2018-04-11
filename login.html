@@ -17,7 +17,8 @@
 			storageBucket: "",
 			messagingSenderId: "548501828671"
 		};
-		firebase.initializeApp(config);
+		var app = firebase.initializeApp(config);
+		db = firebase.firestore(app);
 	</script>
 </head>
 <body>
@@ -29,56 +30,86 @@
 </div>
 
 <script>
-	$('#signin').click(function(){
-		var email = $('#username').value;
-		var password = $('#password').value;
+	$('#signin').click(function () {
+		var email = $('#email').val();
+		var password = $('#password').val();
 		if (email.length < 4) {
 			alert('Please enter an email address.');
+			email = '';
 			return;
 		}
 		if (password.length < 4) {
 			alert('Please enter a password.');
+			password = '';
 			return;
 		}
-		firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
-			// Handle Errors here.
+		app.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
 			var errorCode = error.code;
 			var errorMessage = error.message;
-			console.log(errorCode, errorMessage);
-			// ...
+			console.log("EC: ", errorCode, " EM: ", errorMessage);
+			if (errorCode === 'auth/wrong-password' || errorCode === 'auth/user-not-found') {
+				email = password = '';
+			} else {
+				alert(errorMessage);
+			}
 		});
 	});
-	$('#signup').click(function(){
-		var email = $('#username').value;
-		var password = $('#password').value;
-		alert(email);
+
+	$('#signup').click(function () {
+		var email = $('#email').val();
+		var password = $('#password').val();
 		if (email.length < 4) {
 			alert('Please enter an email address.');
+			email = '';
 			return;
 		}
 		if (password.length < 4) {
 			alert('Please enter a password.');
+			password = '';
 			return;
 		}
-		firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+		app.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
 			var errorCode = error.code;
 			var errorMessage = error.message;
-			if (errorCode == 'auth/weak-password') {
+			if (errorCode === 'auth/weak-password') {
 				alert('The password is too weak.');
-			} else {
+				password = '';
+			} else if(errorCode === 'auth/email-already-in-use'){
+				alert('This email is already in use');
+				password = email = '';
+			}else {
 				alert(errorMessage);
 			}
 			console.log(error);
 		});
 	});
-	firebase.auth().onAuthStateChanged(function (user) {
+
+	app.auth().onAuthStateChanged(function (user) {
 		if (user) {
-			console.log("user signed in!")
-			if(firebase.firestore().collection('users').doc(user.uid).get() === null){
-				alert("User in database not found!");
-				firebase.firestore().collection('users').doc(user.uid).set(user);
-				window.location.replace("/index.html");
-			}
+			console.log("user signed in!");
+			console.log(user.uid);
+			var docRef = db.collection("users").doc(user.uid);
+			docRef.get().then(function (doc) {
+				if (doc.exists) {
+					console.log("Document data:", doc.data());
+					window.location.replace("index.html");
+				} else {
+					console.log("No such document!");
+					console.log("Making document!");
+					db.collection("users").doc(user.uid).set({
+						uid: user.uid,
+						username: user.email,
+						displayName: user.displayName
+					}).then(function () {
+						window.location.replace("index.html");
+					});
+
+				}
+
+			}).catch(function (error) {
+				console.log("Error occured:", error);
+			});
+
 		}
 	});
 </script>
