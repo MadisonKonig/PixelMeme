@@ -53,21 +53,21 @@
 
 <script>
 	$(function () {
-		$('#test').click(
-			db.collection('timestamps').get().then(
-				function (snap) {
-					snap.forEach(function (doc) {
-						var photoX = $('#widthX').val();
-						var photoY = $('#heightY').val();
-						if (photoX === doc.data().x && photoY === doc.data().y) {
-							alert("foun!d");
-						}
-						console.log(doc.id, " => ", doc.data().x);
-					});
-				})
-		);
+		// $('#test').click(
+		// 	db.collection('timestamps').get().then(
+		// 		function (snap) {
+		// 			snap.forEach(function (doc) {
+		// 				var photoX = $('#widthX').val();
+		// 				var photoY = $('#heightY').val();
+		// 				if (photoX === doc.data().x && photoY === doc.data().y) {
+		// 					alert("foun!d");
+		// 				}
+		// 				console.log(doc.id, " => ", doc.data().x);
+		// 			});
+		// 		})
+		// );
 		storage.ref('meme-map/meme-map.png').getDownloadURL().then(function (value) {
-			$('#mememap').attr('src', value + "");
+			$('#mememap').attr('src', value);
 		});
 		$('#mememap').click(function (event) {
 			var map = $('#mememap');
@@ -83,8 +83,8 @@
 			} else if (vertical > 1000) {
 				vertical = 1000;
 			}
-			$('#widthX').val(horizontal);
-			$('#heightY').val(vertical);
+			$('#widthX').val(Math.round(horizontal));
+			$('#heightY').val(Math.round(vertical));
 		});
 		$('#tinySq').change((function () {
 			alert("tiny");

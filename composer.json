@@ -1,0 +1,6 @@
+{
+    "require": {
+        "google/cloud-firestore": "^0.8.0",
+        "google/cloud-storage": "^1.4"
+    }
+}
