@@ -86,12 +86,12 @@ if($whitePixel === true) {
 	imagepng($meme_map, 'meme_map/meme-map(1).png');
 
 	//quit and return
-	header('Location: buyPixel.html');
+	header('Location: reqPixel.html');
 	exit;
 } else {
 
 	//quit and return
-	header('Location: buyPixel.html');
+	header('Location: reqPixel.html');
 	exit;
 }
 #echo '<img src=meme_map/' . $_FILES['imageToUpload']['name'] . ' alt="hello world">';
