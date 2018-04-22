@@ -57,7 +57,7 @@
     <div id="bar">
         <ul>
             <li><a href="index.html">Home</a></li>
-            <li><a href="reqPixel.html">Buy Pixel</a></li>
+            <li id="buy"><a href="reqPixel.html">Buy Pixel</a></li>
             <li><a href="">FAQ</a></li>
             <li><a href="">Contact Us</a></li>
             <li id="login"><a href="login.html">Login</a></li>
@@ -70,7 +70,7 @@
         <map name="memeMap" id="map">
             <area shape="rect" coords="10, 10, 10, 10" href="" title="Addedme">
         </map>
-        <img id="mememap" src="meme_map/meme-map(1).png" width="1000" height="1000" alt="meme Map">
+        <img id="mememap" src="" width="1000" height="1000" alt="meme Map">
     </div>
 </div>
 <noscript><p>please enable javascript</p></noscript>
@@ -80,6 +80,7 @@
 		var so = $('#signout');
 		var li = $('#login');
 		var ac = $('#account');
+		var by = $('#buy');
 		if (user) {
 			var docRef = db.collection("users").doc(user.uid);
 			docRef.get().then(function(data){
@@ -87,10 +88,12 @@
 			});
 			so.show();
 			ac.show();
+			by.show();
 			li.hide();
 		} else {
             so.hide();
             ac.hide();
+            by.hide();
             li.show();
 		}
 	});

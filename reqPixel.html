@@ -46,32 +46,14 @@
 
 <button id="test" name="test">console</button>
 
-<img id="mememap" src="meme_map/meme-map(1).png" border="2" alt="meme Map">
+<img id="mememap" src="" border="2" alt="meme Map">
 
 
 <!--onclick="enterCoords(event)"-->
 
 
 <script>
-	// function newImg(){
-	// 	document.getElementById("mememap").src = document.getElementById("mememap").src + '#' + (new Date()).getTime();
-	// 	}
-	// newImg();
 	$(function () {
-		// $('#test').click(
-		// 	db.collection('timestamps').get().then(
-		// 		function (snap) {
-		// 			snap.forEach(function (doc) {
-		// 				var photoX = $('#widthX').val();
-		// 				var photoY = $('#heightY').val();
-		// 				if (photoX === doc.data().x && photoY === doc.data().y) {
-		// 					alert("foun!d");
-		// 				}
-		// 				console.log(doc.id, " => ", doc.data().x);
-		// 			});
-		// 		})
-		// );
-
 		storage.ref('meme-map/meme-map.png').getDownloadURL().then(function (value) {
 			$('#mememap').attr('src', value);
 		});
@@ -107,7 +89,6 @@
 	});
 	app.auth().onAuthStateChanged(function (user){
 		if(user){
-			// console.log(user.uid);
 			$('#userid').val(user.uid);
 		}
 	});

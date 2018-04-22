@@ -56,7 +56,6 @@ if($pass) {
 	foreach ($addedCoords as $coord) {
 		if (in_array($coord->id(), $coordArray)) {
 			$storage->bucket($bucketid)->object('req-memes/' . $fileName)->delete();
-			//Implement some kind of email to user saying that spot has been taken
 			$notFound = false;
 			header("Location: reqPixel.html");
 			exit();
@@ -92,6 +91,7 @@ if($pass) {
 					'file' => $fileName
 				]);
 		}
+
 		imagecopyresampled($mememapPic, $memePic, $reqX, $reqY, 0, 0, $reqSize, $reqSize, $memepicDLWidth, $memepicDLHeight);
 		imagepng($mememapPic, 'meme_map/meme-map(2).png');
 
@@ -119,6 +119,7 @@ if($pass) {
 		//delete the downloaded files
 		unlink('meme_map/' . $fileName);
 		unlink('meme_map/meme-map(2).png');
+		echo '<a href=index.html>Home</a>';
 	}
 } else {
 	$storage->bucket($bucketid)->object('req-memes/' . $fileName)->delete();

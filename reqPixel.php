@@ -18,7 +18,7 @@ use Google\Cloud\Storage\StorageClient;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 $bucketid = 'pixelmeme-4e7cf.appspot.com';
-$firestore = new FirestoreClient(['projectId' => 'pixelmeme-4e7cf']);
+//$firestore = new FirestoreClient(['projectId' => 'pixelmeme-4e7cf']);
 $storage = new StorageClient(['projectId' => 'pixelmeme-4e7cf']);
 $userid = $_POST['userid'];
 $time = time();
@@ -29,8 +29,7 @@ $target_file = $_FILES['imageToUpload']['name'];
 
 $canUploadPhoto = false;
 
-$addedCoords = $firestore->collection('coords')->document('-coords');
-$coords = $addedCoords->collection('savedcoords')->documents();
+
 
 //defines it to be a "square"
 //$grab_width -= ($grab_width%10);
@@ -74,11 +73,31 @@ if($canUploadPhoto === true) {
 
 	$urlOfImage = $imageUploadData->signedUrl(new \Google\Cloud\Core\Timestamp(new \DateTime('tomorrow')));
 	echo $urlOfImage.'<br><br>';
-	echo $pic_info[0].'<br>'.$pic_info[1].'<br>';
 
-	//The link of what I'd need
-	//userid    time   x   y   sizeOfSquare    imageExtension   ImgWidth   ImgHeight   (1 or 0)   url to image
-
+	//Approve
+	echo '<a href=http://localhost/PixelMeme/checkPixel.php?url='.
+		$userid.'_'.
+		$time.'_'.
+		$grab_width.'_'.
+		$grab_height.'_'.
+		$_POST['size'].'_'.
+		$ext.'_'.
+		$pic_info[0].'_'.
+		$pic_info[1].'_1_'.
+		$urlOfImage.
+		'>Approve</a><br><br>';
+	//Nope
+	echo '<a href=http://localhost/PixelMeme/checkPixel.php?url='.
+		$userid.'_'.
+		$time.'_'.
+		$grab_width.'_'.
+		$grab_height.'_'.
+		$_POST['size'].'_'.
+		$ext.'_'.
+		$pic_info[0].'_'.
+		$pic_info[1].'_0_'.
+		$urlOfImage.
+		'>Nope</a>';
 
 
 //	$mail = new PHPMailer(true);
@@ -123,5 +142,7 @@ if($canUploadPhoto === true) {
 //	}
 
 } else {
-	echo "false, no image uploaded";
+	echo "false, no image uploaded<br>
+			<a href='index.html'>Home</a> ";
+
 }
