@@ -99,48 +99,6 @@ if($canUploadPhoto === true) {
 		$urlOfImage.
 		'>Nope</a>';
 
-
-//	$mail = new PHPMailer(true);
-//	try{
-//		$mail -> SMTPDebug = 2;
-//		$mail -> isSMTP();
-//		$mail -> Host = 'ssl://stmp.gmail.com';
-//		$mail -> Port = 587;
-//		$mail -> SMTPSecure = 'tls';
-//		$mail -> SMTPAuth = true;
-//		$mail -> Username = "tallguyking@gmai.com";
-//		$mail -> Password = "9Jesus921";
-//		$mail -> setFrom('tallguyking@gmail.com');
-//		$mail -> addReplyTo('robmkoenig@gmail.com');
-//		$mail -> addAddress('tallguyking@gmail.com');
-//		$mail -> Subject = 'PHPMailer GMAIL test';
-//		$mail -> Body = "test: " . $urlOfImage;
-//		$mail -> AltBody = 'This is plain text message body';
-//		if(!$mail -> send()){
-//			echo "Mailer Error: ". $mail->ErrorInfo;
-//		} else {
-//			echo 'Message Sent!';
-//		}
-//	}
-//	catch (Exception $e){
-//		echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
-//	}
-
-//	$to = 'tallguyking@gmail.com';
-//	$sub = 'map for you - a meme project';
-//	$mess = 'Which will you decide?\r\n
-//	Image : '.$urlOfImage;
-//	$mess = wordwrap($mess);
-//	$headers = [
-//		'From' => 'tallguyking@gmail.com',
-//		'Reply-To' => 'tallguyking@gmail.com',
-//		'X-Mailer' => 'PHP/'.phpversion()
-//	];
-//	print_r($headers);
-//	if(mail($to, $sub, $mess, $headers)){
-//		echo 'Mail sent!!';
-//	}
-
 } else {
 	echo "false, no image uploaded<br>
 			<a href='index.html'>Home</a> ";
